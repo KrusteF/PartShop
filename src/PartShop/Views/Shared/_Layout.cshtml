@@ -1,0 +1,88 @@
+﻿@using PartShop.Utility
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor;
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PartShop | @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body class="search_background">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">
+                    <label class="text-info" style="cursor:pointer;">PartShop</label>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (User.IsInRole(SD.AdminUser))
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Административен Панел
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Категории</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">Подкатегории</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="MenuItem" asp-action="Index">Продукти</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">Промо кодове</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Users" asp-action="Index">Потребители</a>
+                                </div>
+                            </li>
+                        }
+
+                        @if (User.IsInRole(SD.AdminUser))
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Поръчки
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="ManageOrder">Управляване на поръчки</a>
+                                    @if (User.IsInRole(SD.AdminUser) || User.IsInRole(SD.CustomerUser))
+                                    {
+                                        <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="OrderHistory">Предишни поръчки</a>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer pl-3 text-white-50" style="background-color:#343a40">
+        <div class="container">
+            &copy; 2021 - PartShop
+        </div>
+    </footer>
+    <script src="https://cdn.tiny.cloud/1/0ipw4k9xhwylxow7t4gcl9osccnenetk3eagvls6neyquib9/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/89b6d7f560.js" crossorigin="anonymous"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

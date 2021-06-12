@@ -1,0 +1,87 @@
+﻿@model PartShop.Models.ViewModels.OrderHeaderOrderDetailsViewModel
+@using PartShop.Utility
+<form method="post" asp-action="OrderPickup" asp-controller="Order" asp-route-orderId="@Model.OrderHeader.Id">
+    <div class="container row border ml-1 backgroundWhiteBorder10Padding" style="width:100%">
+        <div class="col-lg-8 col-12" style="border-right:1px solid #bbb9b9">
+            <br />
+            <input type="hidden" asp-for="OrderHeader.Id" />
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label>Име:</label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.PickupName" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.ApplicationUser.Email">Имейл:</label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.ApplicationUser.Email" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.ApplicationUser.PhoneNumber">Телефон:</label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.ApplicationUser.PhoneNumber" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.OrderTotal">Общо:</label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.OrderTotal" disabled class="form-control" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrderHeader.Comments">Адрес:</label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrderHeader.Comments" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-12">
+            <h4 class="d-flex justify-content-between align-content-center mb-3">
+                <span class="text-muted">Номер на поръчката: </span>
+                <span class="badge badge-secondary badge-pill">@Model.OrderHeader.Id</span>
+            </h4>
+            <ul class="list-group mb-3">
+                @foreach (var details in Model.OrderDetails)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+                        <h6 style="font-size:14px" class="mx-0">@details.Name</h6>
+                        <small style="text-align:center" class="text-muted">Количество: @(details.Count * details.Price) лв.</small>
+                        <span style="text-align:center" class="text-muted">@details.Count</span>
+                    </li>
+                }
+                @if (Model.OrderHeader.CouponCode != null)
+                {
+                    <li class="list-group-item d-flex justify-content-between">
+
+                        <div class="text-dark">
+                            <h6 class="text-dark mx-0">Промо код: </h6>
+                            <small class="text-muted">@Model.OrderHeader.CouponCode</small>
+                        </div>
+                        <span class="text-success">-@(Math.Round(Model.OrderHeader.OrderTotalOrignal - Model.OrderHeader.OrderTotal,2))</span>
+                    </li>
+                }
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <span class="text-info">Общо:</span>
+                    <span class="text-info">@Model.OrderHeader.OrderTotal лв.</span>
+                </li>
+            </ul>
+            @if (Model.OrderHeader.Status.Equals(SD.StatusReady) && User.IsInRole(SD.AdminUser))
+            {
+                <button type="submit" class="btn btn-success form-control"><i class="far fa-thumbs-up"></i> Потвърди поръчката</button>
+            }
+        </div>
+    </div>
+</form>

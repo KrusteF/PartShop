@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PartShop.Utility
+@using Microsoft.AspNetCore.Http
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@inject IHttpContextAccessor httpContextAccessor;
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fas fa-user"></i>&nbsp; Моят акаунт</a>
+        </li>
+
+        //Cart while user logged on
+        @if (httpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCartCount) == 0)
+        {
+            <li class="text-white">
+                <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fas fa-shopping-cart"></i>&nbsp; Моята количка</a>
+            </li>
+        }
+        else
+        {
+            <li class="text-white">
+                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
+                    @{
+                        var count = httpContextAccessor.HttpContext.Session.GetInt32(SD.ssShoppingCartCount);
+                    }
+                    <i class="fas fa-shopping-cart"></i>&nbsp; (@count) Моята количка
+                </a>
+            </li>
+        }
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Регистрация</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Вход</a>
+        </li>
+
+        //Cart while user logged off
+        <li class="text-white">
+            <a href="" class="nav-link"> <i class="fas fa-shopping-cart"></i>&nbsp; Моята количка</a>
+        </li>
+    }
+</ul>

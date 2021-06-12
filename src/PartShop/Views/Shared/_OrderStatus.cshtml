@@ -1,0 +1,34 @@
+﻿@model string
+@using PartShop.Utility
+
+<div>
+    @{
+        var image = "";
+        if (Model == SD.StatusSubmitted)
+        {
+            image = SD.OrderPlacementStatus;
+        }
+        else
+        {
+            if (Model == SD.StatusInProcess)
+            {
+                image = SD.OrderAcceptedStatus;
+            }
+            else
+            {
+                if (Model == SD.StatusReady)
+                {
+                    image = SD.ReadyForPickupStatus;
+                }
+                else
+                {
+                    if (Model == SD.StatusCompleted)
+                    {
+                        image = SD.CompletedStatus;
+                    }
+                }
+            }
+        }
+    }
+    <img src="~/images/@image" />
+</div>
