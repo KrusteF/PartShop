@@ -56,6 +56,7 @@ namespace PartShop
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
                 options.Cookie.HttpOnly = true;
             });
+            services.AddApplicationInsightsTelemetry();
 
         }
 

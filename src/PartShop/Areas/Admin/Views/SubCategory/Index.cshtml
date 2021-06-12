@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PartShop.Models.SubCategory>
+@{
+    ViewData["Title"] = "Подкатегории";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br/>
+<div class="backgroundWhite border">
+    <div class="row">
+        <div class="col-6">
+            <div class="text-info h2">Подкатегории</div>
+        </div>
+        <div class="col-6 text-right">
+            <partial name="_CreateNewButtonPartial" />
+        </div>
+    </div>
+    <br/>
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table style="text-align:center" class="border table table-striped">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.Name)
+                    </th>
+                    <th>
+                        Категория
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+            <tr>
+                <td>@Html.DisplayFor(m => item.Name)</td>
+                <td>@Html.DisplayFor(m => item.Category.Name)</td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>Няма намерени подкатегории...</p>
+        }
+    </div>
+</div>
+

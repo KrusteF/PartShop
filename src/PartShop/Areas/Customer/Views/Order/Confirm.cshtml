@@ -1,0 +1,32 @@
+﻿@model PartShop.Models.ViewModels.OrderHeaderOrderDetailsViewModel
+@{
+    ViewData["Title"] = "Поръчката е успешна";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br/>
+<div class="backgroundWhite">
+    <div class="row px-3">
+        <div class="col-8">
+            <h2 class="text-info">Поръчката е успешна</h2>
+        </div>
+        <div class="col-3 offset-1 text-right">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-success form-control">Нова поръчка</a>
+        </div>
+    </div>
+    @if(Model.OrderHeader != null)
+    {
+        <div class="p-3" style="color:darkgreen;">
+            Твоята поръчка е успешна! Може да видиш повече детайли по-долу.
+            <br/>
+        </div>
+        <partial name="_IndividualOrderDetails" model="Model" />
+    }
+    else
+    {
+        <div class="text-danger p-3">
+            Грешка... Моля опитайте пак по-късно!
+        </div>
+    }
+</div>
+

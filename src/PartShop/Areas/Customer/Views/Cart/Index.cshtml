@@ -1,0 +1,122 @@
+﻿@model PartShop.Models.ViewModels.OrderDetailsCartViewModel
+@{
+    ViewData["Title"] = "Моята количка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    @if (Model.ListCart.Count > 0)
+    {
+        <br />
+        <input id="userId" asp-for="@Model.ListCart[0].ApplicationUserId" hidden />
+        <div class="backgroundWhiteBorder">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-dark text-light ml-0 row container">
+                        <div class="col-6">
+                            <i class="fas fa-shopping-cart"></i> &nbsp;
+                            Моята количка
+                        </div>
+                        <div class="col-6 text-right">
+                            <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-info btn-sm">Продължи пазаруването</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in Model.ListCart)
+                        {
+                            <div class="row">
+                                <div class="d-none d-lg-block col-lg-2 text-center py-2">
+                                    <img src="@item.MenuItem.Image" class="rounded" height="80" width="120" />
+                                </div>
+                                <div class="col-12 col-lg-5 text-sm-center text-lg-left">
+                                    <h4><strong>@item.MenuItem.Name</strong></h4>
+                                    <h4><small>@item.MenuItem.Description</small></h4>
+                                </div>
+                                <div class="col-12 col-lg-5 text-sm-center text-lg-right row">
+                                    <div class="col-4 text-md-right" style="padding-top:5px;">
+                                        <h6><strong>@item.MenuItem.Price лв. <span class="text-muted">x</span> @item.Count</strong></h6>
+                                    </div>
+                                    <div class="col-6 col-lg-6 col-sm-4">
+                                        @if (item.Count < 20)
+                                        {
+                                        <div class="float-right mx-1">
+                                            <button type="submit" class="btn btn-success" asp-action="Plus" asp-route-cartId="@item.Id">
+                                                <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        }
+                                        @if (item.Count > 1)
+                                        {
+                                            <div class="float-right mx-1">
+                                                <button type="submit" class="btn btn-danger" asp-action="Minus" asp-route-cartId="@item.Id">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col-2 col-lg-2 col-sm-4 text-right">
+                                        <button type="submit" class="btn btn-danger" asp-action="Remove" asp-route-cartId="@item.Id">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        }
+                        <div class="row">
+                            <div class="col-12 col-md-5">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <input asp-for="@Model.OrderHeader.CouponCode" class="form-control" id="txtCouponCode" placeholder="Код за отстъпка..." />
+                                    </div>
+                                    <div class="col-5">
+                                        <button type="submit" class="btn btn-sm form-control btn-success" id="btnCoupon" asp-action="AddCoupon">
+                                            Добави промо код
+                                        </button>
+                                        <button type="submit" class="btn btn-sm form-control btn-danger" id="btnRemoveCoupon" style="display:none;" asp-action="RemoveCoupon">
+                                            Премахни промо код
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 offset-md-1 col-lg-4 offset-lg-3 pr-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                        <span class="text-info">Общо:</span>
+                                        @{ var total = Model.OrderHeader.OrderTotal - Model.OrderHeader.OrderTotalOrignal; }
+                                        <strong class="text-info" id="withoutDiscount"><span id="txtOrderTotal">@Math.Round(@Model.OrderHeader.OrderTotalOrignal, 2) лв.</span></strong>
+                                        <strong class="text-info" id="withDiscount" style="display:none;"><span id="txtOrderTotal"><a class="text-muted">(@Math.Round(total,2) лв.) </a>@Math.Round(@Model.OrderHeader.OrderTotalOrignal, 2) лв.</span></strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12 col-lg-4 offset-lg-8 col-md-6 offset-md-6">
+                            <a asp-action="Summary" asp-controller="Cart" asp-area="Customer" class="btn btn-success form-control">Продължи</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</form>
+
+@section Scripts{
+    <script>
+        $(function () {
+            var couponCode = document.getElementById("txtCouponCode").value;
+            if (couponCode.length > 0) {
+                document.getElementById('btnCoupon').style.display = 'none';
+                document.getElementById('withoutDiscount').style.display = 'none';
+                document.getElementById('btnRemoveCoupon').style.display = '';
+                document.getElementById('withDiscount').style.display = '';
+            } else {
+                document.getElementById('btnRemoveCoupon').style.display = 'none';
+                document.getElementById('withDiscount').style.display = 'none';
+                document.getElementById('btnCoupon').style.display = '';
+                document.getElementById('withoutDiscount').style.display = '';
+            }
+        });
+    </script>
+}

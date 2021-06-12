@@ -1,0 +1,131 @@
+﻿@model PartShop.Models.ViewModels.OrderDetailsCartViewModel
+
+@{
+    ViewData["Title"] = "Данни за поръчката";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    @if (Model.ListCart.Count > 0)
+    {
+        <br />
+        <input id="userId" asp-for="@Model.ListCart[0].ApplicationUserId" hidden />
+        <div class="backgroundWhiteBorder">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-dark text-light ml-0 row container">
+                        <div class="col-6">
+                            <i class="fas fa-shopping-cart"></i> &nbsp;
+                            Моята количка
+                        </div>
+                        <div class="col-6 text-right">
+                            <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-info btn-sm">Обратно към количката</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="container rounded p-2">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 pb-4">
+                                    <div class="row">
+                                        <h4 class="d-flex justify-content-between align-content-center mb-3">
+                                            <span class="text-info">Данни за поръчката:</span>
+                                        </h4>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label class="col-form-label">Име</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" asp-for="@Model.OrderHeader.PickupName" id="txtName" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label class="col-form-label">Телефон</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <input type="text" asp-for="@Model.OrderHeader.PickupNumber" id="txtPhone" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row my-1">
+                                        <div class="col-3">
+                                            <label class="col-form-label">Адрес</label>
+                                        </div>
+                                        <div class="col-9">
+                                            <textarea asp-for="@Model.OrderHeader.Comments" class="form-control" id="txtAddress" style="height:100px;"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-5 offset-lg-1">
+                                    <h4 class="d-flex justify-content-between align-content-center mb-3">
+                                        <span class="text-info">Информация за поръчката:</span>
+                                    </h4>
+                                    <ul class="list-group mb-3">
+                                        @{ var total = 0.0; }
+                                        @foreach (var item in Model.ListCart)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div>
+                                                    <h6 class="my-0">@item.MenuItem.Name</h6>
+                                                    <small class="text-muted">Количество: @item.Count</small>
+                                                </div>
+                                                <span class="text-muted">@(item.MenuItem.Price * item.Count) лв.</span>
+                                                @{ total += (item.MenuItem.Price * item.Count); }
+                                            </li>
+                                        }
+                                        @if (Model.OrderHeader.CouponCode != null)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div class="text-success">
+                                                    <h6 class="my-0">Промо код</h6>
+                                                    <small class="text-success">@Model.OrderHeader.CouponCode</small>
+                                                </div>
+                                                <span class="text-success">-@(Math.Round(total - Model.OrderHeader.OrderTotal,2)) лв.</span>
+                                            </li>
+                                        }
+                                        <li class="list-group-item d-flex justify-content-between bg-light">
+                                            <small class="text-info">Общо:</small>
+                                            <strong class="text-info">@(Model.OrderHeader.OrderTotal) лв.</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-12 col-md-4 offset-md-8">
+                                <button class="btn btn-success form-control" id="btnPlaceOrder" value="Place Order" onclick="return validateInput()" type="submit">Направи поръчка</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</form>
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script>
+        function validateInput() {
+            var name = document.getElementById('txtName').value;
+            var phone = document.getElementById('txtPhone').value;
+            var address = document.getElementById('txtAddress').value;
+            if (name.toString() == "") {
+                alert("Моля въведете вашето име !");
+                return false;
+            } else {
+                if (phone.toString() == "") {
+                    alert("Моля въведете вашият телефонен номер !");
+                    return false;
+                } else {
+                    if (address.toString() == "") {
+                        alert("Моля въведете вашият адрес !");
+                        return false;
+                    }
+                }
+            }
+        }
+    </script>
+}

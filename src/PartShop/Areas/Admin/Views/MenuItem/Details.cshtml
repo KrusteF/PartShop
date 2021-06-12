@@ -1,0 +1,93 @@
+﻿@model PartShop.Models.ViewModels.MenuItemViewModel
+@using PartShop.Extensions
+
+@{
+    ViewData["Title"] = "Детайли за продукт";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br/>
+<h2 class="text-info">Детайли за продукт</h2>
+<br/>
+<form method="get" enctype="multipart/form-data">
+    <div class="border backgroundWhite row">
+        <input type="hidden" asp-for="MenuItem.Id" />
+        <div class="col-8">
+            <fieldset disabled>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="MenuItem.Name" class="col-form-label"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="MenuItem.Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="MenuItem.Description" class="col-form-label"></label>
+                    </div>
+                    <div class="col-8">
+                        @Html.TextAreaFor(p => p.MenuItem.Description)
+                    </div>
+                    <span class="text-danger" asp-validation-for="MenuItem.Description"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="MenuItem.Price" class="col-form-label"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="MenuItem.Price" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="MenuItem.Image" class="col-form-label"></label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" multiple class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="MenuItem.CategoryId" class="col-form-label"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="MenuItem.Category.Name" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="MenuItem.SubCategoryId" class="col-form-label"></label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="MenuItem.SubCategory.Name" class="form-control" />
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+
+        <div class="col-3 offset-1">
+            <img src="@Model.MenuItem.Image" width="100%" style="border-radius:5px;border:1px solid #bbb9b1;" />
+        </div>
+
+        <div class="col-8">
+            <div class="col-8 offset-4">
+                <partial name="_DetailsAndBackToListPartial" model="Model.MenuItem.Id" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist",
+            menubar: 'file edit format',
+            readonly: 1
+        });
+    </script>
+}
+

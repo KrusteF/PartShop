@@ -1,0 +1,53 @@
+﻿@model PartShop.Models.ViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "";
+}
+<br />
+
+<div class="backgroundWhite container">
+
+    <ul class="menu-filter-list list-inline text-center" id="menu-filters">
+        @if (Model.Category.Any())
+        {
+            <li class="filter active btn btn-secondary ml-1 mr-1" data-filter=".menu-shop">Виж Всички</li>
+        }
+        else
+        {
+            <li class="disabled btn btn-danger ml-1 mr-1" style="cursor:pointer">Няма налични продукти в момента!</li>
+        }
+        @foreach (var item in Model.Category)
+        {
+            <li class="filter ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">@item.Name</li>
+        }
+    </ul>
+
+    @foreach (var category in Model.Category)
+    {
+        <div class="row" id="menu-wrapper">
+            <partial name="_ThumbnailAreaPartial" model="@Model.MenuItem.Where(p=>p.Category.Name.Equals(category.Name))" />
+        </div>
+    }
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script>
+
+        var posts = $(".post");
+
+        (function ($) {
+            $("#menu-filters li").click(function () {
+                $("#menu-filters li").removeClass('active btn btn-secondary');
+                $(this).addClass('active btn btn-secondary');
+
+                var selectedFilter = $(this).data('filter');
+                $(".menu-shop").fadeOut();
+
+                setTimeout(function () {
+                    $(selectedFilter).slideDown();
+                }, 300);
+            });
+        })(jQuery);
+
+    </script>
+}
