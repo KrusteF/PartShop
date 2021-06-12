@@ -1,0 +1,107 @@
+﻿@page
+@model ExternalLoginModel
+@using PartShop.Utility
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>@ViewData["Title"]</h1>
+<h4>Associate your @Model.LoginProvider account.</h4>
+<hr />
+
+<p class="text-info">
+    You've successfully authenticated with <strong>@Model.LoginProvider</strong>.
+    Please enter an email address for this site below and click the Register button to finish
+    logging in.
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div class="border backgroundWhite">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Input.Name" class="col-form-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Input.Name" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="Input.Name"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Input.Email" class="col-form-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Input.Email" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="Input.Email"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Input.PhoneNumber" class="col-form-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Input.PhoneNumber" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="Input.PhoneNumber"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Input.StreetAddress" class="col-form-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Input.StreetAddress" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="Input.StreetAddress"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Input.City" class="col-form-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Input.City" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="Input.City"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Input.State" class="col-form-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Input.State" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="Input.State"></span>
+                </div>
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="Input.PostalCode" class="col-form-label"></label>
+                    </div>
+                    <div class="col-5">
+                        <input asp-for="Input.PostalCode" class="form-control" />
+                    </div>
+                    <span class="text-danger" asp-validation-for="Input.PostalCode"></span>
+                </div>
+                @if (User.IsInRole(SD.AdminUser))
+                {
+                    <div class="form-group row">
+                        <div class="col-2"></div>
+                        <div class="col-5">
+                            <input type="radio" value="@SD.AdminUser" name="rdUserRole" checked /> @SD.AdminUser
+                        </div>
+                    </div>
+                }
+                <div class="form-group row">
+                    <div class="col-5 offset-2">
+                        <button type="submit" class="btn btn-primary form-control">Register</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
