@@ -1,9 +1,9 @@
-﻿using System;
-
-using PartShop.Models;
-
-namespace PartShop.Utility
+﻿namespace PartShop.Utility
 {
+    using System;
+
+    using PartShop.Models;
+
     public static class SD
     {
         public const string DefaultToolImage = "default_tool.jpg";
@@ -15,7 +15,7 @@ namespace PartShop.Utility
 
         public const string StatusSubmitted = "Submitted";
         public const string StatusInProcess = "Being Prepared";
-        public const string StatusReady = "Ready for Pickup";
+        public const string StatusReady = "Ready";
         public const string StatusCompleted = "Completed";
         public const string StatusCancelled = "Cancelled";
 
@@ -23,10 +23,9 @@ namespace PartShop.Utility
         public const string PaymentStatusApproved = "Approved";
         public const string PaymentStatusRejected = "Rejected";
 
-        public const string OrderPlacementStatus = "OrderPlaced.png";
-        public const string OrderAcceptedStatus = "InKitchen.png";
-        public const string ReadyForPickupStatus = "ReadyForPickup.png";
-        public const string CompletedStatus = "completed.png";
+        public const string OrderSubmitted = "OrderSubmitted";
+        public const string OrderInProcess = "OrderInProcess";
+        public const string OrderCompleted = "OrderCompleted";
 
         public static string ConvertToRawHtml(string source)
         {

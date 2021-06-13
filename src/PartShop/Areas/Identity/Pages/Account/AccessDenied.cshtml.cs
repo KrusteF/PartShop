@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace PartShop.Areas.Identity.Pages.Account
+﻿namespace PartShop.Areas.Identity.Pages.Account
 {
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public class AccessDeniedModel : PageModel
     {
         public void OnGet()

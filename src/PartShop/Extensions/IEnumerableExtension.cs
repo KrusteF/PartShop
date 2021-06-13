@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace PartShop.Extensions
+﻿namespace PartShop.Extensions
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Microsoft.AspNetCore.Mvc.Rendering;
+
+
     public static class IEnumerableExtension
     {
         public static IEnumerable<SelectListItem> ToSelectListItem<T>(this IEnumerable<T> items, int selectedList)

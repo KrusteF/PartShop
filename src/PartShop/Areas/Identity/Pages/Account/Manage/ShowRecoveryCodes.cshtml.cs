@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace PartShop.Areas.Identity.Pages.Account.Manage
+﻿namespace PartShop.Areas.Identity.Pages.Account.Manage
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public class ShowRecoveryCodesModel : PageModel
     {
         [TempData]

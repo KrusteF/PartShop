@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PartShop.Models
+﻿namespace PartShop.Models
 {
     public class PagingInfo
     {

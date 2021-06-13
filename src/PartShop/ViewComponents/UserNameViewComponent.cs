@@ -1,13 +1,13 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using PartShop.Data;
-
-namespace PartShop.ViewComponents
+﻿namespace PartShop.ViewComponents
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using PartShop.Data;
+
     public class UserNameViewComponent : ViewComponent
     {
         private readonly ApplicationDbContext _db;

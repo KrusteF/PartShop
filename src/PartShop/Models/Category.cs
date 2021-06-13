@@ -1,7 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PartShop.Models
+﻿namespace PartShop.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Category
     {
         [Key]

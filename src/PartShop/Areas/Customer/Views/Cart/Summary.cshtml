@@ -19,7 +19,7 @@
                             Моята количка
                         </div>
                         <div class="col-6 text-right">
-                            <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-outline-info btn-sm">Обратно към количката</a>
+                            <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="btn btn-info btn-sm">Обратно към количката</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -65,13 +65,13 @@
                                         @foreach (var item in Model.ListCart)
                                         {
                                             <li class="list-group-item d-flex justify-content-between">
-                                                <div>
-                                                    <h6 class="my-0">@item.MenuItem.Name</h6>
-                                                    <small class="text-muted">Количество: @item.Count</small>
-                                                </div>
-                                                <span class="text-muted">@(item.MenuItem.Price * item.Count) лв.</span>
-                                                @{ total += (item.MenuItem.Price * item.Count); }
-                                            </li>
+                                                    <div>
+                                                        <h6 class="my-0">@item.MenuItem.Name</h6>
+                                                        <small class="text-muted">Количество: @item.Count</small>
+                                                    </div>
+                                                    <span class="text-muted">@(item.MenuItem.Price * item.Count) лв.</span>
+                                                    @{ total += (item.MenuItem.Price * item.Count); }
+                                                </li>
                                         }
                                         @if (Model.OrderHeader.CouponCode != null)
                                         {

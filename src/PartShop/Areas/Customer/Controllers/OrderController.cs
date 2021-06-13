@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using PartShop.Data;
-using PartShop.Models;
-using PartShop.Models.ViewModels;
-using PartShop.Utility;
-
-namespace PartShop.Areas.Customer.Controllers
+﻿namespace PartShop.Areas.Customer.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using PartShop.Data;
+    using PartShop.Models;
+    using PartShop.Models.ViewModels;
+    using PartShop.Utility;
+
     [Area("Customer")]
     public class OrderController : Controller
     {

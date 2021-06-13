@@ -1,15 +1,15 @@
-﻿using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using PartShop.Data;
-using PartShop.Models;
-using PartShop.Utility;
-
-namespace PartShop.Areas.Admin.Controllers
+﻿namespace PartShop.Areas.Admin.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using PartShop.Data;
+    using PartShop.Models;
+    using PartShop.Utility;
+
     [Area("Admin")]
     [Authorize(Roles = SD.AdminUser)]
     public class CategoryController : Controller

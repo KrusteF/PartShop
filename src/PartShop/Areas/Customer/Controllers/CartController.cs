@@ -1,19 +1,19 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-
-using PartShop.Data;
-using PartShop.Models;
-using PartShop.Models.ViewModels;
-using PartShop.Utility;
-
-namespace PartShop.Areas.Customer.Controllers
+﻿namespace PartShop.Areas.Customer.Controllers
 {
+    using System;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
+    using PartShop.Data;
+    using PartShop.Models;
+    using PartShop.Models.ViewModels;
+    using PartShop.Utility;
+
     [Area("Customer")]
     public class CartController : Controller
     {
@@ -165,10 +165,8 @@ namespace PartShop.Areas.Customer.Controllers
 
             DetailCartVM.ListCart = _db.ShoppingCart.Where(p => p.ApplicationUserId == claim.Value).ToList();
 
-            DetailCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
             DetailCartVM.OrderHeader.OrderDate = DateTime.Now;
             DetailCartVM.OrderHeader.UserId = claim.Value;
-            DetailCartVM.OrderHeader.Status = SD.PaymentStatusPending;
 
             _db.OrderHeader.Add(DetailCartVM.OrderHeader);
             await _db.SaveChangesAsync();

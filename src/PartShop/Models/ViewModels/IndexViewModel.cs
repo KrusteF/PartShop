@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace PartShop.Models.ViewModels
+﻿namespace PartShop.Models.ViewModels
 {
+    using System.Collections.Generic;
+
     public class IndexViewModel
     {
         public IEnumerable<MenuItem> MenuItem { get; set; }

@@ -6,29 +6,23 @@
         var image = "";
         if (Model == SD.StatusSubmitted)
         {
-            image = SD.OrderPlacementStatus;
+            image = SD.OrderSubmitted;
         }
         else
         {
             if (Model == SD.StatusInProcess)
             {
-                image = SD.OrderAcceptedStatus;
+                image = SD.OrderInProcess;
             }
             else
             {
-                if (Model == SD.StatusReady)
+                if (Model == SD.StatusCompleted)
                 {
-                    image = SD.ReadyForPickupStatus;
-                }
-                else
-                {
-                    if (Model == SD.StatusCompleted)
-                    {
-                        image = SD.CompletedStatus;
-                    }
+                    image = SD.OrderCompleted;
                 }
             }
         }
+    }
     }
     <img src="~/images/@image" />
 </div>
