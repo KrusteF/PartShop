@@ -46,14 +46,17 @@
                             </li>
                         }
 
-                        @if (User.IsInRole(SD.AdminUser))
+                        @if (User.IsInRole(SD.AdminUser) || User.IsInRole(SD.CustomerUser))
                         {
                             <li class="nav-item dropdown text-white-50">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Поръчки
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    @if (User.IsInRole(SD.AdminUser))
+                                    {
                                     <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="ManageOrder">Управляване на поръчки</a>
+                                    }
                                     @if (User.IsInRole(SD.AdminUser) || User.IsInRole(SD.CustomerUser))
                                     {
                                         <a class="dropdown-item" asp-area="Customer" asp-controller="Order" asp-action="OrderHistory">Предишни поръчки</a>
