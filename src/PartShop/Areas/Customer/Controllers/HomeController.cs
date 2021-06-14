@@ -28,29 +28,22 @@
 
         public async Task<IActionResult> Index()
         {
-            try
+            IndexViewModel indexVM = new IndexViewModel()
             {
-                IndexViewModel indexVM = new IndexViewModel()
-                {
-                    MenuItem = await _db.MenuItem.Include(p => p.Category).Include(p => p.SubCategory).ToListAsync(),
-                    Category = await _db.Category.ToListAsync(),
-                    Coupon = await _db.Coupon.Where(p => p.IsActive == true).ToListAsync()
-                };
+                MenuItem = await _db.MenuItem.Include(p => p.Category).Include(p => p.SubCategory).ToListAsync(),
+                Category = await _db.Category.ToListAsync(),
+                Coupon = await _db.Coupon.Where(p => p.IsActive == true).ToListAsync()
+            };
 
 
-                var claimIdentity = (ClaimsIdentity)User.Identity;
-                var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
-                if (claim != null)
-                {
-                    var count = _db.ShoppingCart.Where(p => p.ApplicationUserId == claim.Value).ToList().Count;
-                    HttpContext.Session.SetInt32(SD.ssShoppingCartCount, count);
-                }
-                return View(indexVM);
-            }
-            catch(Exception ex)
+            var claimIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            if (claim != null)
             {
-                return View();
+                var count = _db.ShoppingCart.Where(p => p.ApplicationUserId == claim.Value).ToList().Count;
+                HttpContext.Session.SetInt32(SD.ssShoppingCartCount, count);
             }
+            return View(indexVM);
         }
 
         [Authorize]
